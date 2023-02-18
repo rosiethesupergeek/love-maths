@@ -15,11 +15,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    document.getElementById("answer-box").addEventListener("keydown", function(event){
+    document.getElementById("answer-box").addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
             checkAnswer();
         }
-    })
+    });
 
     runGame("addition");
 
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
  */
 function runGame(gameType) {
 
-    document.getElementById("answer-box").value= "";
+    document.getElementById("answer-box").value = "";
     document.getElementById("answer-box").focus();
 
     // Creates two random numbers between 1 and 25
@@ -44,7 +44,14 @@ function runGame(gameType) {
         displayMultiplyQuestion(num1, num2);
     } else if (gameType === "subtract" ) {
         displaySubtractQuestion(num1, num2);
-    } else {
+    } else if (gameType === "division") {
+
+        let num3 = Math.floor(Math.random() * 10) + 1;
+        let num4 = num1 * num3;
+        displayDivideQuestion (num4, num1);
+    }
+    
+    else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
     }
@@ -89,7 +96,10 @@ function calculateCorrectAnswer() {
         return [operand1 * operand2, "multiply"];
     } else if (operator === "-") {
         return [operand1 - operand2, "subtract"];
-    } else {
+    } else if (operator === "/") {
+        return [operand1 / operand2, "division"];
+    }
+    else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
     }
@@ -116,10 +126,10 @@ function incrementWrongAnswer() {
     
 }
 
-function displayAdditionQuestion(operand1, operand2) {
+function displayAdditionQuestion(a, b) {
 
-    document.getElementById('operand1').textContent = operand1;
-    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operand1').textContent = a;
+    document.getElementById('operand2').textContent = b;
     document.getElementById('operator').textContent = "+";
     
 }
@@ -137,5 +147,13 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
+
+}
+
+function displayDivideQuestion(operand1, operand2) {
+
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "/";
 
 }
